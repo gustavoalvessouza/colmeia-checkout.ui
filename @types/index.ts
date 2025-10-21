@@ -1,2 +1,3 @@
-export * from "./enums/payment.enum";
+export * from "./enums/payments.enum";
 export * from "./enums/routes.enum";
+export * from "./interfaces/user.interface";
