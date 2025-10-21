@@ -1,0 +1,16 @@
+{
+  "formatter": {
+    "indentStyle": "tab",
+    "tabSize": 2
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
