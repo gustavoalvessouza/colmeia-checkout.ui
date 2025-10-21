@@ -1,6 +1,6 @@
 "use client";
 
-import { PathRoutes } from "@/@types";
+import { PathRoutes, type UserSignInData } from "@/@types";
 import { AppImages } from "@/assets";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,10 +12,23 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export function SignInCard() {
+    const { signIn, loading, error } = useAuth();
+    const { register, handleSubmit } = useForm<UserSignInData>();
+
+    const onSubmit = async (data: UserSignInData) => {
+        await signIn(data);
+
+        if (!error) {
+            return redirect(PathRoutes.CATALOG);
+        }
+    };
+
     return (
         <Card className="w-full max-w-sm">
             <CardHeader>
@@ -29,7 +42,7 @@ export function SignInCard() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
@@ -39,29 +52,41 @@ export function SignInCard() {
                                 placeholder="colmeia@example.com"
                                 autoFocus
                                 required
+                                {...register("email")}
                             />
                         </div>
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
                             </div>
-                            <Input id="password" type="password" required />
+                            <Input
+                                id="password"
+                                type="password"
+                                placeholder="********"
+                                required
+                                {...register("password")}
+                            />
                         </div>
                     </div>
+
+                    <CardFooter className="flex-col gap-2 mt-4">
+                        <Button
+                            type="submit"
+                            className="w-full cursor-pointer"
+                            disabled={loading}
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className="w-full cursor-pointer"
+                            onClick={() => redirect(PathRoutes.SIGN_UP)}
+                        >
+                            Create a new account
+                        </Button>
+                    </CardFooter>
                 </form>
             </CardContent>
-            <CardFooter className="flex-col gap-2">
-                <Button type="submit" className="w-full cursor-pointer">
-                    Login
-                </Button>
-                <Button
-                    variant="outline"
-                    className="w-full cursor-pointer"
-                    onClick={() => redirect(PathRoutes.SIGN_UP)}
-                >
-                    Create a new account
-                </Button>
-            </CardFooter>
         </Card>
     );
 }

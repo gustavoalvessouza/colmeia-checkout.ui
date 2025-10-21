@@ -7,3 +7,4 @@ export interface IUser {
 }
 
 export type UserSignUpData = Pick<IUser, "name" | "email" | "password">;
+export type UserSignInData = Pick<IUser, "email" | "password">;

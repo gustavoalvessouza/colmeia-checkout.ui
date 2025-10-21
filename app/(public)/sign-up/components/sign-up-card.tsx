@@ -18,17 +18,36 @@ import { redirect } from "next/navigation";
 import { useSignUp } from "../hooks/use-sign-up";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks";
+import { useEffect } from "react";
 
 export function SignUpCard() {
+    const { signIn, isAuthenticated } = useAuth();
     const { signUp, loading } = useSignUp();
     const { register, handleSubmit, reset } = useForm<UserSignUpData>();
 
     const onSubmit = async (data: UserSignUpData) => {
-        await signUp(data);
-        reset();
-        toast.success("Account created successfully!");
-        redirect(PathRoutes.CATALOG);
+        try {
+            await signUp(data);
+
+            const user = { email: data.email, password: data.password };
+            await signIn(user);
+
+            toast.success("Account created successfully!");
+
+            console.log("Redirecting to catalog...");
+            reset();
+            redirect(PathRoutes.CATALOG);
+        } catch (error: unknown) {
+            toast.error("Failed to create account. Please try again.");
+        }
     };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            redirect(PathRoutes.CATALOG);
+        }
+    }, [isAuthenticated]);
 
     return (
         <Card className="w-full max-w-sm">
@@ -48,7 +67,7 @@ export function SignUpCard() {
                         <div className="grid gap-2">
                             <Label htmlFor="email">Name</Label>
                             <Input
-                                id="email"
+                                id="name"
                                 type="text"
                                 placeholder="John Doe"
                                 autoFocus

@@ -1,5 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { SignInCard } from "./components/sign-in-card";
+import { useAuth } from "@/hooks";
+
+import { PathRoutes } from "@/@types";
+import { redirect } from "next/navigation";
 
 const Sign: React.FC = () => {
     return (
