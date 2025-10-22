@@ -12,6 +12,8 @@ export default function AuthenticatedLayout({
 }) {
     const { isAuthenticated, loading } = useAuth();
 
+    // fala gugaaaa
+
     useEffect(() => {
         if (isAuthenticated && !loading) {
             redirect(PathRoutes.CATALOG);
