@@ -14,20 +14,32 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export function SignInCard() {
-    const { signIn, loading, error } = useAuth();
-    const { register, handleSubmit } = useForm<UserSignInData>();
+    const { signIn, loading, isAuthenticated } = useAuth();
+    const { register, handleSubmit, reset } = useForm<UserSignInData>();
+    const router = useRouter();
 
     const onSubmit = async (data: UserSignInData) => {
-        await signIn(data);
-
-        if (!error) {
-            return redirect(PathRoutes.CATALOG);
+        try {
+            await signIn(data);
+            toast.success("Successfully signed in!");
+            reset();
+            redirect(PathRoutes.CATALOG);
+        } catch (error: unknown) {
+            toast.error("Failed to log in. Please try again.");
         }
     };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            redirect(PathRoutes.CATALOG);
+        }
+    }, [isAuthenticated]);
 
     return (
         <Card className="w-full max-w-sm">
@@ -36,6 +48,7 @@ export function SignInCard() {
                     src={AppImages.colmeiaLogo}
                     alt="Colmeia Logo"
                     className="w-42 my-4 mx-auto"
+                    priority // melhora LCP se for acima da dobra
                 />
                 <CardDescription className="text-center">
                     Enter your data to create a new account
@@ -75,12 +88,12 @@ export function SignInCard() {
                             className="w-full cursor-pointer"
                             disabled={loading}
                         >
-                            Login
+                            {loading ? "Signing in..." : "Login"}
                         </Button>
                         <Button
                             variant="outline"
                             className="w-full cursor-pointer"
-                            onClick={() => redirect(PathRoutes.SIGN_UP)}
+                            onClick={() => router.push(PathRoutes.SIGN_UP)} // use router.push no client
                         >
                             Create a new account
                         </Button>

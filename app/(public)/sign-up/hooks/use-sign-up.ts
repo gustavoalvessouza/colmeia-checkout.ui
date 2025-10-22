@@ -15,8 +15,6 @@ export function useSignUp() {
         setError(null);
 
         try {
-            await sleep(1500);
-
             const users = (await db.getAll("users")) || [];
             const userExists = users.find((u) => u.email === data.email);
 
@@ -28,17 +26,10 @@ export function useSignUp() {
             const id = await db.add<UserSignUpData>("users", data);
             const createdUser = await db.get("users", id);
 
-            // await db.put("session", {
-            //     key: "currentUser",
-            //     value: createdUser?.id,
-            // });
-
             return createdUser;
         } catch (err: any) {
             setError(err.message);
             throw err;
-        } finally {
-            setLoading(false);
         }
     }, []);
 

@@ -97,7 +97,7 @@ export const db = {
             req.onerror = () => reject(req.error);
         });
     },
-    async delete(storeName: string, key: IDBValidKey) {
+    async delete(storeName: string, key: any) {
         return withStore(storeName, "readwrite", (store) => store.delete(key));
     },
     async clear(storeName: string) {

@@ -29,13 +29,9 @@ export function SignUpCard() {
     const onSubmit = async (data: UserSignUpData) => {
         try {
             await signUp(data);
-
             const user = { email: data.email, password: data.password };
             await signIn(user);
-
             toast.success("Account created successfully!");
-
-            console.log("Redirecting to catalog...");
             reset();
             redirect(PathRoutes.CATALOG);
         } catch (error: unknown) {

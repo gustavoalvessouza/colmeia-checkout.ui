@@ -7,23 +7,29 @@ import { useAuth } from "@/hooks";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function AuthenticatedLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { isAuthenticated, loading, signOut } = useAuth();
+    const { isAuthenticated, signOut } = useAuth();
 
     useEffect(() => {
-        if (!isAuthenticated && !loading) {
+        console.log("isauthenticated", isAuthenticated);
+        if (!isAuthenticated) {
             redirect(PathRoutes.SIGN_IN);
         }
-    }, [isAuthenticated, loading]);
+    }, [isAuthenticated]);
 
     const onSignOut = async () => {
-        await signOut();
-        redirect(PathRoutes.SIGN_IN);
+        try {
+            await signOut();
+            redirect(PathRoutes.SIGN_IN);
+        } catch (error: unknown) {
+            toast.error("Failed to create account. Please try again.");
+        }
     };
 
     return (
