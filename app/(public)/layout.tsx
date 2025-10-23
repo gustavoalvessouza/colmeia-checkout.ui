@@ -3,7 +3,7 @@
 import { PathRoutes } from "@/@types";
 import { useAuth } from "@/hooks";
 import { redirect } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function AuthenticatedLayout({
     children,
@@ -12,11 +12,9 @@ export default function AuthenticatedLayout({
 }) {
     const { isAuthenticated, loading } = useAuth();
 
-    useEffect(() => {
-        if (isAuthenticated && !loading) {
-            redirect(PathRoutes.CATALOG);
-        }
-    }, [isAuthenticated, loading]);
+    if (isAuthenticated && !loading) {
+        return redirect(PathRoutes.CATALOG);
+    }
 
     return <>{children}</>;
 }

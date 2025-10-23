@@ -22,15 +22,26 @@ export function IncrementalInput({ product }: IncrementalInputProps) {
 
     return (
         <div className="flex items-center space-x-2">
-            <Button variant="outline" size="icon" onClick={onDecrement}>
+            <Button
+                variant="outline"
+                size="icon"
+                className="cursor-pointer"
+                onClick={onDecrement}
+            >
                 –
             </Button>
             <Input
                 type="number"
                 value={quantity}
-                className="w-16 text-center"
+                disabled
+                className="w-16 text-center disabled:opacity-100"
             />
-            <Button variant="outline" size="icon" onClick={onIncrement}>
+            <Button
+                variant="outline"
+                size="icon"
+                className="cursor-pointer"
+                onClick={onIncrement}
+            >
                 +
             </Button>
         </div>

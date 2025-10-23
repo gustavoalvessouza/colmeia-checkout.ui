@@ -1,7 +1,7 @@
 import React from "react";
 
 const Cart: React.FC = () => {
-    return <>Cart</>;
+    return <div></div>;
 };
 
 export default Cart;

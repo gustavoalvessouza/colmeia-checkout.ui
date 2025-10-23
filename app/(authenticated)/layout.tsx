@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import { toast } from "sonner";
 
 export default function AuthenticatedLayout({
@@ -16,12 +16,6 @@ export default function AuthenticatedLayout({
 }) {
     const { isAuthenticated, signOut } = useAuth();
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            redirect(PathRoutes.SIGN_IN);
-        }
-    }, [isAuthenticated]);
-
     const onSignOut = async () => {
         try {
             await signOut();
@@ -30,6 +24,10 @@ export default function AuthenticatedLayout({
             toast.error("Failed to create account. Please try again.");
         }
     };
+
+    if (!isAuthenticated) {
+        return redirect(PathRoutes.SIGN_IN);
+    }
 
     return (
         <div className="min-h-screen flex flex-col">
