@@ -1,30 +1,36 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCart } from "@/contexts/cart-context";
+import { IProduct } from "@/@types";
 
-export function IncrementalInput() {
-    const [value, setValue] = useState(0);
+interface IncrementalInputProps {
+    product: IProduct;
+}
 
-    const increment = () => {
-        setValue((prev) => prev + 1);
+export function IncrementalInput({ product }: IncrementalInputProps) {
+    const { increment, decrement, productQuantity } = useCart();
+
+    const onIncrement = () => {
+        increment(product);
     };
-    const decrement = () => {
-        if (value - 1 <= -1) return;
-        setValue((prev) => Math.max(prev - 1, 0));
+
+    const onDecrement = () => {
+        decrement(product);
     };
+
+    const quantity = productQuantity(product);
 
     return (
         <div className="flex items-center space-x-2">
-            <Button variant="outline" size="icon" onClick={decrement}>
+            <Button variant="outline" size="icon" onClick={onDecrement}>
                 –
             </Button>
             <Input
                 type="number"
-                value={value}
-                onChange={(e) => setValue(Number(e.target.value))}
+                value={quantity}
                 className="w-16 text-center"
             />
-            <Button variant="outline" size="icon" onClick={increment}>
+            <Button variant="outline" size="icon" onClick={onIncrement}>
                 +
             </Button>
         </div>

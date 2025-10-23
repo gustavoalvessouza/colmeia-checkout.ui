@@ -32,7 +32,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                 </ItemDescription>
             </ItemContent>
             <ItemActions>
-                <IncrementalInput />
+                <IncrementalInput product={product} />
             </ItemActions>
         </Item>
     );

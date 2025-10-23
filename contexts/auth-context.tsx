@@ -5,7 +5,7 @@ import { ISession } from "@/@types/interfaces/session.interface";
 import { UserNotFoundError } from "@/errors";
 import { db } from "@/lib/indexeddb";
 import { sleep } from "@/utils/sleep";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { toast } from "sonner";
 
 export type AuthContextValues = {
