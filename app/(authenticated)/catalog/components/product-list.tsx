@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "./product";
+import Product from "../../../../components/shared/product";
 import { productsMock } from "@/mocks";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/cart-context";

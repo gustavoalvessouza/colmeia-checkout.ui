@@ -1,5 +1,5 @@
 import React from "react";
-import { IncrementalInput } from "./incremental-input";
+import { IncrementalInput } from "../../app/(authenticated)/catalog/components/incremental-input";
 import {
     Item,
     ItemActions,
@@ -13,9 +13,10 @@ import { formatCurrency } from "@/utils/format-curreny";
 
 interface ProductProps {
     product: IProduct;
+    readOnly?: boolean;
 }
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const Product: React.FC<ProductProps> = ({ product, readOnly = false }) => {
     return (
         <Item variant="outline">
             <Image
@@ -31,9 +32,11 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                     {formatCurrency(product.price)}
                 </ItemDescription>
             </ItemContent>
-            <ItemActions>
-                <IncrementalInput product={product} />
-            </ItemActions>
+            {!readOnly && (
+                <ItemActions>
+                    <IncrementalInput product={product} />
+                </ItemActions>
+            )}
         </Item>
     );
 };
