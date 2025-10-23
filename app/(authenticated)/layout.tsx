@@ -39,7 +39,7 @@ export default function AuthenticatedLayout({
                         alt="Colmeia Logo"
                     />
                 </div>
-                <div>
+                <div className="flex items-center">
                     <Button
                         variant="outline"
                         className="cursor-pointer"

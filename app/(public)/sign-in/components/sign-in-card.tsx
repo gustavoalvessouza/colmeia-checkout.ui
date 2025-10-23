@@ -48,7 +48,7 @@ export function SignInCard() {
                     src={AppImages.colmeiaLogo}
                     alt="Colmeia Logo"
                     className="w-42 my-4 mx-auto"
-                    priority // melhora LCP se for acima da dobra
+                    priority
                 />
                 <CardDescription className="text-center">
                     Enter your data to create a new account
@@ -93,7 +93,7 @@ export function SignInCard() {
                         <Button
                             variant="outline"
                             className="w-full cursor-pointer"
-                            onClick={() => router.push(PathRoutes.SIGN_UP)} // use router.push no client
+                            onClick={() => router.push(PathRoutes.SIGN_UP)}
                         >
                             Create a new account
                         </Button>

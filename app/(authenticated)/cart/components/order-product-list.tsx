@@ -17,7 +17,7 @@ const OrderProductList: React.FC = () => {
     return (
         <div className="flex flex-col gap-4 min-w-full">
             {items.map((product) => (
-                <Product product={product} key={product.id} readOnly />
+                <Product product={product} key={product.id} />
             ))}
 
             <Button className="cursor-pointer" onClick={onContinue}>

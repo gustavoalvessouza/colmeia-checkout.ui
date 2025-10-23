@@ -6,11 +6,7 @@ import { useCart } from "@/contexts/cart-context";
 import { formatCurrency } from "@/utils/format-curreny";
 
 const Cart: React.FC = () => {
-    const { items } = useCart();
-
-    const total = items
-        .map((i) => i.price * i.quantity)
-        .reduce((acc, value) => acc + value);
+    const { items, totalPrice } = useCart();
 
     return (
         <div className="min-w-full flex flex-col gap-4">
@@ -30,8 +26,11 @@ const Cart: React.FC = () => {
 
             <div className="flex w-full justify-between border-t border-zinc-200 border-dashed pt-2">
                 <h2 className="font-semibold">Sub total</h2>
-                <span className="font-semibold">{formatCurrency(total)}</span>
+                <span className="font-semibold">
+                    {formatCurrency(totalPrice)}
+                </span>
             </div>
+
             <OrderProductList />
         </div>
     );
