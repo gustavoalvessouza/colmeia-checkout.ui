@@ -1,7 +1,7 @@
 "use client";
 
 import { type IUser, type UserSignInData } from "@/@types";
-import { ISession } from "@/@types/interfaces/session";
+import { ISession } from "@/@types/interfaces/session.interface";
 import { UserNotFoundError } from "@/errors";
 import { db } from "@/lib/indexeddb";
 import { sleep } from "@/utils/sleep";
@@ -144,7 +144,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, [loadSessionUser]);
 
     const isAuthenticated = !!user;
-    console.log("user", user);
 
     const values: AuthContextValues = {
         user,

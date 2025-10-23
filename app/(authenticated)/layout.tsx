@@ -17,7 +17,6 @@ export default function AuthenticatedLayout({
     const { isAuthenticated, signOut } = useAuth();
 
     useEffect(() => {
-        console.log("isauthenticated", isAuthenticated);
         if (!isAuthenticated) {
             redirect(PathRoutes.SIGN_IN);
         }

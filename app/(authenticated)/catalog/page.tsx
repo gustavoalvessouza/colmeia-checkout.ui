@@ -2,10 +2,15 @@
 
 import { useAuth } from "@/hooks";
 import React from "react";
+import ProductList from "./components/product-list";
 
 const Catalog: React.FC = () => {
     const { user } = useAuth();
-    return <>Catalog {user?.email}</>;
+    return (
+        <>
+            <ProductList />
+        </>
+    );
 };
 
 export default Catalog;
