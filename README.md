@@ -1,10 +1,20 @@
 # comeia-checkout.ui
 
-## start project with
+## how to run the project
 
--   npm install
--   npm run dev
+-   clone this repository
+-   run `npm install`
+-   run `npm run dev`
 
-## optional
+## to improve dev experience
 
 -   install .vscode/ recommended extesions.
+
+## used techs
+
+-   Next.js
+-   Tailwind
+-   Biome (Linter and Code formatter)
+-   Indexed DB (Simulate Database)
+-   react-hook-form (Uncontrolled forms)
+-   Sooner (toast alerts)
