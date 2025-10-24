@@ -37,7 +37,7 @@ const ProcessOrder: React.FC<ProcessOrderProps> = ({ className }) => {
         setTitle(initialValues.title);
         setDescription(initialValues.description);
         await sleep(3000);
-        setTitle("Confirmandando pedido com o estabelecimento");
+        setTitle("Confirmando pedido com o estabelecimento");
         await sleep(3000);
     };
 

@@ -9,7 +9,7 @@ import React, { useCallback, useState } from "react";
 import { toast } from "sonner";
 
 export type AuthContextValues = {
-    user: UserSignInData | null;
+    user: IUser | null;
     loading: boolean;
     error: string | null;
     isAuthenticated: boolean;
@@ -23,7 +23,7 @@ export const AuthContext = React.createContext<AuthContextValues | undefined>(
 );
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<UserSignInData | null>(null);
+    const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 

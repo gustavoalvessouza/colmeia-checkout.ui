@@ -12,8 +12,7 @@ const PixForm: React.FC = () => {
                 alt="Scan the QR code to pay it"
             />
             <h2 className="text-center">
-                Aponte a camêra do seu celular para o QR Code acima ou copie e
-                cole o link abaixo no app do seu banco.
+                Aponte a camêra do seu celular para o QR Code acima
             </h2>
         </div>
     );

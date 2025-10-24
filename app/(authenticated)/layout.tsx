@@ -14,7 +14,7 @@ export default function AuthenticatedLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const { isAuthenticated, signOut } = useAuth();
+    const { user, isAuthenticated, signOut } = useAuth();
 
     const onSignOut = async () => {
         try {
@@ -39,13 +39,20 @@ export default function AuthenticatedLayout({
                         alt="Colmeia Logo"
                     />
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-4">
+                    <span
+                        className="hidden md:block font-semibold"
+                        aria-label={`Usuário logado: ${user?.name}`}
+                    >
+                        {user?.name}
+                    </span>
                     <Button
                         variant="outline"
                         className="cursor-pointer"
                         onClick={onSignOut}
+                        aria-label="Sair"
                     >
-                        Sign Out
+                        Sair
                     </Button>
                 </div>
             </header>

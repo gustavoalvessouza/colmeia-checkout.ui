@@ -24,12 +24,17 @@ const Checkout: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 max-w-4/5 mx-auto">
+        <div className="flex flex-col gap-4 w-full md:max-w-3/4 mx-auto">
             <h1 className="font-bold text-2xl">Forma de Pagamento</h1>
 
             <div className="flex w-full justify-between border-b border-zinc-200 border-dashed pb-2">
                 <h2 className="font-semibold">Total</h2>
-                <span className="font-semibold">
+                <span
+                    className="font-semibold"
+                    aria-label={`Preço total a ser pago ${formatCurrency(
+                        totalPrice
+                    )}`}
+                >
                     {formatCurrency(totalPrice)}
                 </span>
             </div>

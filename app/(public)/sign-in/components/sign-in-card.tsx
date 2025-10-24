@@ -51,7 +51,7 @@ export function SignInCard() {
                     priority
                 />
                 <CardDescription className="text-center">
-                    Enter your data to create a new account
+                    Preencha os campos para acessar sua conta
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -88,14 +88,14 @@ export function SignInCard() {
                             className="w-full cursor-pointer"
                             disabled={loading}
                         >
-                            {loading ? "Signing in..." : "Login"}
+                            {loading ? "Entrando..." : "Entrar"}
                         </Button>
                         <Button
                             variant="outline"
                             className="w-full cursor-pointer"
                             onClick={() => router.push(PathRoutes.SIGN_UP)}
                         >
-                            Create a new account
+                            Criar uma nova conta
                         </Button>
                     </CardFooter>
                 </form>

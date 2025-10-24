@@ -54,7 +54,8 @@ export function SignUpCard() {
                     className="w-42 my-4 mx-auto"
                 />
                 <CardDescription className="text-center">
-                    Create a new account to enjoy all features!
+                    Crie uma nova conta para aproveitar todas as
+                    funcionalidades!
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -102,14 +103,14 @@ export function SignUpCard() {
                             className="w-full cursor-pointer"
                             disabled={loading}
                         >
-                            Sign Up
+                            Cadastrar
                         </Button>
                         <Button
                             variant="outline"
                             className="w-full cursor-pointer"
                             onClick={() => redirect(PathRoutes.SIGN_IN)}
                         >
-                            I already have an account
+                            Já tenho uma conta
                         </Button>
                     </CardFooter>
                 </form>

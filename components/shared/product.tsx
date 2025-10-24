@@ -18,15 +18,15 @@ interface ProductProps {
 
 const Product: React.FC<ProductProps> = ({ product, readOnly = false }) => {
     return (
-        <Item variant="outline">
+        <Item variant="outline" className="">
             <Image
                 src={product.image}
                 alt={product.title}
                 width="100"
                 height="100"
-                className="rounded-md"
+                className="rounded-md w-full md:w-auto"
             />
-            <ItemContent>
+            <ItemContent className="flex flex-col">
                 <ItemTitle>{product.title}</ItemTitle>
                 <ItemDescription>
                     {formatCurrency(product.price)}

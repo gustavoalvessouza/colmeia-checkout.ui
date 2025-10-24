@@ -17,7 +17,10 @@ const Cart: React.FC = () => {
                 return (
                     <div className="flex w-full justify-between" key={i.id}>
                         <h2 className="font-medium text-zinc-500">{i.title}</h2>
-                        <span className="text-zinc-500">
+                        <span
+                            className="text-zinc-500"
+                            aria-label={`Preço ${formatCurrency(productPrice)}`}
+                        >
                             {formatCurrency(productPrice)}
                         </span>
                     </div>
@@ -26,7 +29,12 @@ const Cart: React.FC = () => {
 
             <div className="flex w-full justify-between border-t border-zinc-200 border-dashed pt-2">
                 <h2 className="font-semibold">Sub total</h2>
-                <span className="font-semibold">
+                <span
+                    className="font-semibold"
+                    aria-label={`Sub total da Compra ${formatCurrency(
+                        totalPrice
+                    )}`}
+                >
                     {formatCurrency(totalPrice)}
                 </span>
             </div>
