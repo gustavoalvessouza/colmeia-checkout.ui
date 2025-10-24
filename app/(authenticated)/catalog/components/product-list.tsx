@@ -17,6 +17,8 @@ const ProductList: React.FC = () => {
 
     return (
         <div className="flex flex-col gap-4">
+            <h1 className="font-bold text-2xl">Faça seu pedido</h1>
+
             {productsMock.map((product) => (
                 <Product product={product} key={product.id} />
             ))}

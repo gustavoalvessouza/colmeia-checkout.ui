@@ -7,6 +7,7 @@ interface CartContextValue {
     items: CartProduct[];
     increment: (product: IProduct) => void;
     decrement: (product: IProduct) => void;
+    clearItems: VoidFunction;
     totalItems: number;
     totalPrice: number;
     productQuantity: (product: IProduct) => number;
@@ -20,8 +21,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
     const [items, setItems] = useState<CartProduct[]>([]);
-
-    console.log("items", items);
 
     const increment = useCallback((product: IProduct) => {
         setItems((prev) => {
@@ -49,6 +48,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         return items?.find((p) => p.id === product.id)?.quantity || 0;
     };
 
+    const clearItems = () => {
+        setItems([]);
+    };
+
     const totalItems = items.reduce((acc, i) => acc + i.quantity, 0);
     const totalPrice = items.reduce((acc, i) => acc + i.price * i.quantity, 0);
 
@@ -58,6 +61,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
                 items,
                 increment,
                 decrement,
+                clearItems,
                 totalItems,
                 totalPrice,
                 productQuantity,

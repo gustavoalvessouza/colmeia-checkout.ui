@@ -9,35 +9,71 @@ import { Button } from "@/components/ui/button";
 
 import { PathRoutes } from "@/@types";
 import { redirect } from "next/navigation";
+import { useCart } from "@/contexts/cart-context";
 
 interface ProcessOrderProps {
     className?: string;
 }
 
+const initialValues = {
+    title: "Processando seu pagamento...",
+    description:
+        "Aguarde enquanto validamos as informações. Isso pode levar alguns segundos.",
+};
+
 const ProcessOrder: React.FC<ProcessOrderProps> = ({ className }) => {
-    const [title, setTitle] = React.useState<string>(
-        "Processando sua pagamento..."
-    );
+    const { clearItems } = useCart();
+
+    const [title, setTitle] = React.useState<string>(initialValues.title);
     const [description, setDescription] = React.useState<string>(
-        "Aguarde enquanto validamos as informações. Isso pode levar alguns segundos."
+        initialValues.description
     );
     const [success, setSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
+
+    const process = async () => {
+        setError(false);
+        setSuccess(false);
+        setTitle(initialValues.title);
+        setDescription(initialValues.description);
+        await sleep(3000);
+        setTitle("Confirmandando pedido com o estabelecimento");
+        await sleep(3000);
+    };
+
+    const onSuccess = async () => {
+        await process();
+        setTitle("Pagamento confirmado!");
+        setDescription("Acompanhe seu pedido na tela inicial.");
+        setSuccess(true);
+        setError(false);
+    };
+
+    const onError = async () => {
+        await process();
+        setTitle("Algo de errado aconteceu!");
+        setDescription("Tente novamente clicando no botão abaixo.");
+        setError(true);
+        setSuccess(false);
+    };
 
     React.useEffect(() => {
-        async function process() {
-            await sleep(3000);
-            setTitle("Confirmandando pedido com o estabelecimento");
-            await sleep(3000);
-            setTitle("Pagamento confirmado!");
-            setDescription("Acompanhe seu pedido na tela inicial.");
-            setSuccess(true);
-        }
-        process();
+        onError();
     }, []);
 
     const onBack = () => {
+        clearItems();
         redirect(PathRoutes.CATALOG);
     };
+
+    const button = {
+        text: success ? " Voltar ao inicio" : "Tentar novamente",
+        cb: success ? onBack : onSuccess,
+    };
+
+    const image = success ? AppImages.successOrder : AppImages.errorOrder;
+
+    const isPaymentProcessed = success || error;
 
     return (
         <div
@@ -47,12 +83,12 @@ const ProcessOrder: React.FC<ProcessOrderProps> = ({ className }) => {
             )}
         >
             <div className="flex items-center justify-center mb-4">
-                {success ? (
+                {isPaymentProcessed ? (
                     <Image
-                        src={AppImages.successOrder}
+                        src={image}
                         width={300}
                         height={300}
-                        alt="Successfully order!"
+                        alt="Payment Process Status Image"
                     />
                 ) : (
                     <div
@@ -76,12 +112,14 @@ const ProcessOrder: React.FC<ProcessOrderProps> = ({ className }) => {
                 {description}
             </p>
 
-            <Button
-                className="mt-6 bg-zinc-500 cursor-pointer"
-                onClick={onBack}
-            >
-                Voltar ao inicio
-            </Button>
+            {isPaymentProcessed && (
+                <Button
+                    className="mt-6 bg-zinc-500 cursor-pointer"
+                    onClick={button.cb}
+                >
+                    {button.text}
+                </Button>
+            )}
         </div>
     );
 };
